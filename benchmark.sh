@@ -1,5 +1,26 @@
 #!/bin/bash
 
+# Formatter functions
+prettier_format() {
+  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config
+}
+export -f prettier_format
+
+prettier_oxc_format() {
+  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --plugin @prettier/plugin-oxc
+}
+export -f prettier_oxc_format
+
+biome_format() {
+  ./node_modules/.bin/biome format --write "$@"
+}
+export -f biome_format
+
+oxfmt_format() {
+  ./node_modules/.bin/oxfmt "$@"
+}
+export -f oxfmt_format
+
 echo "========================================="
 echo "JavaScript/TypeScript Formatter Benchmark"
 echo "========================================="
@@ -21,26 +42,36 @@ if [ ! -d "node_modules" ]; then
   exit 1
 fi
 
-# Check if hyperfine is installed
-if ! command -v hyperfine &> /dev/null; then
-  echo "Error: Hyperfine is not installed!"
-  echo "Please install hyperfine: https://github.com/sharkdp/hyperfine"
-  exit 1
-fi
-
 echo "Starting benchmark with:"
 echo "- 3 warmup runs"
 echo "- 10 benchmark runs"
 echo "- Git reset before each run"
 echo ""
 
-# Run the benchmark
+echo ""
+echo "========================================="
+echo "Benchmarking checker.ts (single large file)"
+echo "========================================="
+# Run the benchmark for checker.ts
 hyperfine --ignore-failure --warmup 3 --runs 10 \
+  --shell=bash \
+  --prepare 'cp checker.ts checker.ts.bak && mv checker.ts.bak checker.ts' \
+  'prettier_format checker.ts' \
+  'prettier_oxc_format checker.ts' \
+  'biome_format checker.ts' \
+  'oxfmt_format checker.ts'
+
+echo "========================================="
+echo "Benchmarking Outline repository"
+echo "========================================="
+# Run the benchmark for Outline
+hyperfine --ignore-failure --warmup 3 --runs 10 \
+  --shell=bash \
   --prepare 'git -C outline reset --hard' \
-  './node_modules/.bin/prettier --write "outline/**/*.{js,jsx,ts,tsx}" --experimental-cli --no-config --ignore-path=.prettierignore' \
-  './node_modules/.bin/prettier --write "outline/**/*.{js,jsx,ts,tsx}" --experimental-cli --no-config --ignore-path=.prettierignore --plugin @prettier/plugin-oxc' \
-  './node_modules/.bin/biome format --write outline' \
-  './node_modules/.bin/oxfmt outline'
+  'prettier_format "outline/**/*.{js,jsx,ts,tsx}" --ignore-path=.prettierignore' \
+  'prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}" --ignore-path=.prettierignore' \
+  'biome_format outline' \
+  'oxfmt_format outline'
 
 echo ""
 echo "Benchmark complete!"

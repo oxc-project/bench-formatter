@@ -10,7 +10,7 @@
     "prettier": "3.6.2"
   },
   "scripts": {
-    "setup": "git clone --depth=1 git@github.com:outline/outline.git",
+    "setup": "./setup.sh",
     "benchmark": "./benchmark.sh"
   }
 }

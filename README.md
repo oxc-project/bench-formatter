@@ -32,6 +32,41 @@ pnpm run benchmark
 ## Results
 
 ```
+=========================================
+Benchmarking checker.ts (single large file)
+=========================================
+Benchmark 1: prettier_format checker.ts
+  Time (mean ± σ):      63.0 ms ±   1.4 ms    [User: 135.9 ms, System: 18.1 ms]
+  Range (min … max):    61.3 ms …  65.0 ms    10 runs
+
+Benchmark 2: prettier_oxc_format checker.ts
+  Time (mean ± σ):      73.7 ms ±   3.4 ms    [User: 147.0 ms, System: 21.1 ms]
+  Range (min … max):    69.7 ms …  80.7 ms    10 runs
+
+Benchmark 3: biome_format checker.ts
+  Time (mean ± σ):      27.0 ms ±   0.4 ms    [User: 17.6 ms, System: 6.6 ms]
+  Range (min … max):    26.4 ms …  27.5 ms    10 runs
+
+  Warning: Ignoring non-zero exit code.
+
+Benchmark 4: oxfmt_format checker.ts
+  Time (mean ± σ):      27.2 ms ±   0.7 ms    [User: 16.6 ms, System: 7.0 ms]
+  Range (min … max):    26.8 ms …  29.2 ms    10 runs
+
+  Warning: Ignoring non-zero exit code.
+
+Summary
+  biome_format checker.ts ran
+    1.01 ± 0.03 times faster than oxfmt_format checker.ts
+    2.34 ± 0.06 times faster than prettier_format checker.ts
+    2.73 ± 0.13 times faster than prettier_oxc_format checker.ts
+```
+
+```
+=========================================
+Benchmarking Outline repository
+=========================================
+
 Benchmark 1: ./node_modules/.bin/prettier --write "outline/**/*.{js,jsx,ts,tsx}" --experimental-cli --no-config --ignore-path=.prettierignore
   Time (mean ± σ):      3.426 s ±  0.363 s    [User: 20.338 s, System: 1.581 s]
   Range (min … max):    3.124 s …  4.220 s    10 runs
