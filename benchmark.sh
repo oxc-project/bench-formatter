@@ -1,13 +1,15 @@
 #!/bin/bash
 
+./setup.sh
+
 # Formatter functions
 prettier_format() {
-  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config
+  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --ignore-path=.prettierignore
 }
 export -f prettier_format
 
 prettier_oxc_format() {
-  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --plugin @prettier/plugin-oxc
+  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --ignore-path=.prettierignore --plugin @prettier/plugin-oxc
 }
 export -f prettier_oxc_format
 
@@ -50,26 +52,27 @@ echo ""
 
 echo ""
 echo "========================================="
-echo "Benchmarking checker.ts (single large file)"
+echo "Benchmarking parser.ts (single large file)"
 echo "========================================="
-# Run the benchmark for checker.ts
+
+# Run the benchmark for parser.ts
 hyperfine --ignore-failure --warmup 3 --runs 10 \
+  --prepare 'cp parser.ts.bak parser.ts' \
   --shell=bash \
-  --prepare 'cp checker.ts checker.ts.bak && mv checker.ts.bak checker.ts' \
-  'prettier_format checker.ts' \
-  'prettier_oxc_format checker.ts' \
-  'biome_format checker.ts' \
-  'oxfmt_format checker.ts'
+  'prettier_format parser.ts' \
+  'prettier_oxc_format parser.ts' \
+  'biome_format parser.ts' \
+  'oxfmt_format parser.ts'
 
 echo "========================================="
 echo "Benchmarking Outline repository"
 echo "========================================="
 # Run the benchmark for Outline
 hyperfine --ignore-failure --warmup 3 --runs 10 \
-  --shell=bash \
   --prepare 'git -C outline reset --hard' \
-  'prettier_format "outline/**/*.{js,jsx,ts,tsx}" --ignore-path=.prettierignore' \
-  'prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}" --ignore-path=.prettierignore' \
+  --shell=bash \
+  'prettier_format "outline/**/*.{js,jsx,ts,tsx}"' \
+  'prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}"' \
   'biome_format outline' \
   'oxfmt_format outline'
 

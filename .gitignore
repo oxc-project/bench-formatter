@@ -1,4 +1,5 @@
 node_modules/
 
 outline/
-checker.ts
+parser.ts
+parser.ts.bak

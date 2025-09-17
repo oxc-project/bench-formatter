@@ -1,7 +1,10 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "useIgnoreFile": false
+  },
   "formatter": {
-    "includes": ["./outline/**/*.{js,jsx,ts,tsx}"],
+    "includes": ["./outline/**/*.{js,jsx,ts,tsx}", "./parser.ts"],
     "formatWithErrors": true
   },
   "linter": {
