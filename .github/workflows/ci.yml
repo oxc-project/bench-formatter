@@ -35,13 +35,11 @@ jobs:
           tool: hyperfine
 
       - run: pnpm run setup
-      - run: pnpm run benchmark
+      - run: pnpm run bench:update-readme
 
       - name: Update README with benchmark results
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          pnpm run bench:update-readme
-
           # Check if README was modified
           if git diff --quiet README.md; then
             echo "No changes to README.md"
