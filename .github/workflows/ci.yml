@@ -29,6 +29,7 @@ jobs:
         with:
           tool: hyperfine
 
+      - run: pnpm run setup
       - run: pnpm run benchmark
 
       - name: Update README with benchmark results
