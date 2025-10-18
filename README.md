@@ -45,54 +45,54 @@ pnpm run bench
 =========================================
 Benchmarking parser.ts (single large file)
 =========================================
-Benchmark 1: prettier_format parser.ts
-  Time (mean ± σ):      2.149 s ±  0.328 s    [User: 3.066 s, System: 0.182 s]
-  Range (min … max):    1.797 s …  2.597 s    10 runs
-
-Benchmark 2: prettier_oxc_format parser.ts
-  Time (mean ± σ):      1.241 s ±  0.019 s    [User: 1.909 s, System: 0.120 s]
-  Range (min … max):    1.205 s …  1.273 s    10 runs
-
-Benchmark 3: biome_format parser.ts
-  Time (mean ± σ):     131.6 ms ±   1.1 ms    [User: 103.1 ms, System: 26.4 ms]
-  Range (min … max):   130.0 ms … 133.4 ms    10 runs
-
-Benchmark 4: oxfmt_format parser.ts
-  Time (mean ± σ):      59.4 ms ±   0.4 ms    [User: 43.1 ms, System: 17.7 ms]
-  Range (min … max):    58.8 ms …  60.1 ms    10 runs
-
+Benchmark 1: prettier
+  Time (mean ± σ):      1.405 s ±  0.094 s    [User: 3.111 s, System: 0.204 s]
+  Range (min … max):    1.306 s …  1.553 s    10 runs
+ 
+Benchmark 2: prettier+oxc-parser
+  Time (mean ± σ):     974.9 ms ±  15.2 ms    [User: 1834.9 ms, System: 139.5 ms]
+  Range (min … max):   955.8 ms … 1003.5 ms    10 runs
+ 
+Benchmark 3: biome
+  Time (mean ± σ):     134.6 ms ±   1.3 ms    [User: 104.3 ms, System: 26.2 ms]
+  Range (min … max):   132.9 ms … 136.7 ms    10 runs
+ 
+Benchmark 4: oxfmt
+  Time (mean ± σ):      60.6 ms ±   0.4 ms    [User: 44.6 ms, System: 18.3 ms]
+  Range (min … max):    60.0 ms …  61.2 ms    10 runs
+ 
 Summary
-  oxfmt_format parser.ts ran
-    2.21 ± 0.03 times faster than biome_format parser.ts
-   20.89 ± 0.36 times faster than prettier_oxc_format parser.ts
-   36.16 ± 5.53 times faster than prettier_format parser.ts
+  oxfmt ran
+    2.22 ± 0.03 times faster than biome
+   16.09 ± 0.28 times faster than prettier+oxc-parser
+   23.19 ± 1.57 times faster than prettier
+
 =========================================
 Benchmarking Outline repository
 =========================================
-Benchmark 1: prettier_format "outline/**/*.{js,jsx,ts,tsx}"
-  Time (mean ± σ):     15.033 s ±  0.299 s    [User: 26.161 s, System: 1.365 s]
-  Range (min … max):   14.538 s … 15.454 s    10 runs
-
-Benchmark 2: prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}"
-  Time (mean ± σ):      9.577 s ±  0.135 s    [User: 14.575 s, System: 1.123 s]
-  Range (min … max):    9.405 s …  9.868 s    10 runs
-
-Benchmark 3: biome_format outline
-  Time (mean ± σ):      1.501 s ±  0.013 s    [User: 2.521 s, System: 0.372 s]
-  Range (min … max):    1.489 s …  1.534 s    10 runs
-
-Benchmark 4: oxfmt_format outline
-  Time (mean ± σ):     450.1 ms ±   4.4 ms    [User: 665.9 ms, System: 169.9 ms]
-  Range (min … max):   444.4 ms … 460.4 ms    10 runs
-
+Benchmark 1: prettier
+  Time (mean ± σ):     13.008 s ±  0.171 s    [User: 47.832 s, System: 2.216 s]
+  Range (min … max):   12.724 s … 13.310 s    10 runs
+ 
+Benchmark 2: prettier+oxc-parser
+  Time (mean ± σ):      8.033 s ±  0.075 s    [User: 27.438 s, System: 1.719 s]
+  Range (min … max):    7.940 s …  8.167 s    10 runs
+ 
+Benchmark 3: biome
+  Time (mean ± σ):     781.6 ms ±   4.0 ms    [User: 2488.1 ms, System: 372.6 ms]
+  Range (min … max):   776.1 ms … 786.9 ms    10 runs
+ 
+Benchmark 4: oxfmt
+  Time (mean ± σ):     241.9 ms ±   2.2 ms    [User: 665.1 ms, System: 162.9 ms]
+  Range (min … max):   240.0 ms … 246.5 ms    10 runs
+ 
 Summary
-  oxfmt_format outline ran
-    3.34 ± 0.04 times faster than biome_format outline
-   21.28 ± 0.36 times faster than prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}"
-   33.40 ± 0.74 times faster than prettier_format "outline/**/*.{js,jsx,ts,tsx}"
+  oxfmt ran
+    3.23 ± 0.03 times faster than biome
+   33.20 ± 0.43 times faster than prettier+oxc-parser
+   53.77 ± 0.86 times faster than prettier
 
 Benchmark complete!
-Please update README.md with the results above.
 ```
 <!-- BENCHMARK_RESULTS_END -->
 
