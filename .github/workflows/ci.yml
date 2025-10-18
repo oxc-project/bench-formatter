@@ -25,6 +25,10 @@ jobs:
 
       - uses: oxc-project/setup-node@fdbf0dfd334c4e6d56ceeb77d91c76339c2a0885 # v1.0.4
 
+      - uses: taiki-e/install-action@e7ef886cf8f69c25ecef6bbc2858a42e273496ec # v2.62.28
+        with:
+          tool: hyperfine
+
       - run: pnpm run benchmark
 
       - name: Update README with benchmark results
