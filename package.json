@@ -1,6 +1,7 @@
 {
   "name": "bench-formatter",
   "version": "1.0.0",
+  "type": "module",
   "packageManager": "pnpm@10.18.3",
   "description": "Benchmark suite for JS/TS formatters",
   "devDependencies": {
