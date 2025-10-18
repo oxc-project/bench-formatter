@@ -59,11 +59,13 @@ echo "========================================="
 hyperfine --ignore-failure --warmup 3 --runs 10 \
   --prepare 'cp parser.ts.bak parser.ts' \
   --shell=bash \
+  -n prettier -n 'prettier+oxc-parser' -n biome -n oxfmt \
   'prettier_format parser.ts' \
   'prettier_oxc_format parser.ts' \
   'biome_format parser.ts' \
   'oxfmt_format parser.ts'
 
+echo ""
 echo "========================================="
 echo "Benchmarking Outline repository"
 echo "========================================="
@@ -71,6 +73,7 @@ echo "========================================="
 hyperfine --ignore-failure --warmup 3 --runs 10 \
   --prepare 'git -C outline reset --hard' \
   --shell=bash \
+  -n prettier -n 'prettier+oxc-parser' -n biome -n oxfmt \
   'prettier_format "outline/**/*.{js,jsx,ts,tsx}"' \
   'prettier_oxc_format "outline/**/*.{js,jsx,ts,tsx}"' \
   'biome_format outline' \
@@ -78,4 +81,3 @@ hyperfine --ignore-failure --warmup 3 --runs 10 \
 
 echo ""
 echo "Benchmark complete!"
-echo "Please update README.md with the results above."
