@@ -31,6 +31,7 @@ pnpm run benchmark
 
 ## Results
 
+<!-- BENCHMARK_RESULTS_START -->
 ```
 =========================================
 Benchmarking checker.ts (single large file)
@@ -93,6 +94,7 @@ Summary
    16.40 ± 5.90 times faster than ./node_modules/.bin/prettier --write "outline/**/*.{js,jsx,ts,tsx}" --experimental-cli --no-config --ignore-path=.prettierignore --plugin @prettier/plugin-oxc
    20.33 ± 7.54 times faster than ./node_modules/.bin/prettier --write "outline/**/*.{js,jsx,ts,tsx}" --experimental-cli --no-config --ignore-path=.prettierignore
 ```
+<!-- BENCHMARK_RESULTS_END -->
 
 ## Notes
 

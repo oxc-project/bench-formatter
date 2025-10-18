@@ -11,6 +11,7 @@
   },
   "scripts": {
     "setup": "./setup.sh",
-    "benchmark": "./benchmark.sh"
+    "benchmark": "./benchmark.sh",
+    "bench:update-readme": "node scripts/update-readme-bench.js"
   }
 }
