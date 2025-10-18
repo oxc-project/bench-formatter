@@ -9,7 +9,7 @@ const execAsync = promisify(exec);
 async function runBenchmark() {
   console.log("Running benchmark...");
   try {
-    const { stdout } = await execAsync("pnpm run benchmark");
+    const { stdout } = await execAsync("pnpm run bench");
     return stdout;
   } catch (error) {
     console.error("Error running benchmark:", error);

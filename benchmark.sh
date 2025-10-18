@@ -4,12 +4,12 @@
 
 # Formatter functions
 prettier_format() {
-  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --ignore-path=.prettierignore
+  ./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache
 }
 export -f prettier_format
 
 prettier_oxc_format() {
-  ./node_modules/.bin/prettier --write "$@" --experimental-cli --no-config --ignore-path=.prettierignore --plugin @prettier/plugin-oxc
+  ./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --plugin @prettier/plugin-oxc
 }
 export -f prettier_oxc_format
 

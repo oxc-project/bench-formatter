@@ -34,4 +34,4 @@ else
 fi
 
 echo ""
-echo "Setup complete! Run 'pnpm run benchmark' to start benchmarking."
+echo "Setup complete! Run 'pnpm run bench' to start benchmarking."
