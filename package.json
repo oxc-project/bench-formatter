@@ -2,7 +2,7 @@
   "name": "bench-formatter",
   "version": "1.0.0",
   "type": "module",
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.19.0",
   "description": "Benchmark suite for JS/TS formatters",
   "devDependencies": {
     "@biomejs/biome": "2.2.6",
