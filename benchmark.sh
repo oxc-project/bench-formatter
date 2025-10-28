@@ -3,13 +3,17 @@
 ./setup.sh
 
 # Formatter functions
+prettier_base() {
+  ./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown
+}
+
 prettier_format() {
-  ./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache
+  prettier_base "$@"
 }
 export -f prettier_format
 
 prettier_oxc_format() {
-  ./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --plugin @prettier/plugin-oxc
+  prettier_base "$@" --plugin @prettier/plugin-oxc
 }
 export -f prettier_oxc_format
 
