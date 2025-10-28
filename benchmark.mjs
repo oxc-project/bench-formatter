@@ -17,7 +17,7 @@ const formatters = {
     `./node_modules/.bin/prettier ${files} --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`,
 
   biome_format: (files) =>
-    `./node_modules/.bin/biome format --write --files-ignore-unknown ${files}`,
+    `./node_modules/.bin/biome format --write --files-ignore-unknown=true ${files}`,
 
   oxfmt_format: (files) =>
     `./node_modules/.bin/oxfmt ${files}`

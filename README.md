@@ -33,7 +33,7 @@ pnpm run bench
   - prettier + oxc plugin:
     - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
   - biome:
-    - `./node_modules/.bin/biome format --write --files-ignore-unknown "$@"`
+    - `./node_modules/.bin/biome format --write --files-ignore-unknown=true "$@"`
   - oxc:
     - `./node_modules/.bin/oxfmt "$@"`
 `
