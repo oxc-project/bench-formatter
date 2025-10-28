@@ -29,11 +29,11 @@ pnpm run bench
   - Git reset before each run to ensure identical starting conditions
   - Local binaries via `./node_modules/.bin/`
   - prettier:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown`
   - prettier + oxc plugin:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --plugin @prettier/plugin-oxc`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
   - biome:
-    - `./node_modules/.bin/biome format --write "$@"` + biome.json
+    - `./node_modules/.bin/biome format --write --files-ignore-unknown "$@"`
   - oxc:
     - `./node_modules/.bin/oxfmt "$@"`
 `
