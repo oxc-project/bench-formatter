@@ -12,7 +12,7 @@
   },
   "scripts": {
     "setup": "./setup.sh",
-    "bench": "./benchmark.sh",
+    "bench": "node benchmark.mjs",
     "bench:update-readme": "node scripts/update-readme-bench.js"
   }
 }
