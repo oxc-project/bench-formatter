@@ -22,6 +22,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          token: ${{ secrets.OXC_BOT_PAT }}
 
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -37,17 +39,8 @@ jobs:
       - run: pnpm run setup
       - run: pnpm run bench:update-readme
 
-      - name: Update README with benchmark results
+      - uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          # Check if README was modified
-          if git diff --quiet README.md; then
-            echo "No changes to README.md"
-          else
-            echo "README.md was updated with new benchmark results"
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add README.md
-            git commit -m "chore: update benchmark results in README"
-            git push
-          fi
+        with:
+          commit_message: chore: update benchmark results in README
+          file_pattern: README.md
