@@ -9,6 +9,12 @@ Comparing execution time of **Prettier**, **Biome**, and **Oxfmt** on the Kibana
 - [Biome](https://biomejs.dev/) Formatter
 - [Oxfmt](https://oxc.rs):
 
+## Versions
+
+- **Prettier**: 3.6.2
+- **Biome**: 2.3.2
+- **Oxfmt**: 0.9.0
+
 ## Setup
 
 ```bash

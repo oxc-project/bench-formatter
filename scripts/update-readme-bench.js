@@ -33,7 +33,27 @@ function extractBenchmarkResults(output) {
   return benchmarkSection;
 }
 
-async function updateReadme(benchmarkResults) {
+async function getVersions() {
+  console.log("Fetching versions...");
+  try {
+    const [prettier, biome, oxfmt] = await Promise.all([
+      execAsync("pnpm prettier --version"),
+      execAsync("pnpm biome --version"),
+      execAsync("pnpm oxfmt --version"),
+    ]);
+
+    return {
+      prettier: prettier.stdout.trim(),
+      biome: biome.stdout.trim().replace("Version: ", ""),
+      oxfmt: oxfmt.stdout.trim().replace("Version: ", ""),
+    };
+  } catch (error) {
+    console.error("Error fetching versions:", error);
+    process.exit(1);
+  }
+}
+
+async function updateReadme(benchmarkResults, versions) {
   console.log("Updating README...");
 
   const readmePath = "README.md";
@@ -65,6 +85,16 @@ ${benchmarkResults}
   readmeContent =
     beforeMarker + "\n" + newBenchmarkContent + "\n" + afterMarker;
 
+  // Update versions section
+  const versionsRegex = /## Versions\n\n- \*\*Prettier\*\*: .*\n- \*\*Biome\*\*: .*\n- \*\*Oxfmt\*\*: .*/;
+  const newVersionsContent = `## Versions\n\n- **Prettier**: ${versions.prettier}\n- **Biome**: ${versions.biome}\n- **Oxfmt**: ${versions.oxfmt}`;
+
+  if (versionsRegex.test(readmeContent)) {
+    readmeContent = readmeContent.replace(versionsRegex, newVersionsContent);
+  } else {
+    console.warn("Could not find versions section in README.md");
+  }
+
   await writeFile(readmePath, readmeContent);
   console.log("README updated successfully");
 }
@@ -73,7 +103,8 @@ async function main() {
   try {
     const benchmarkOutput = await runBenchmark();
     const results = extractBenchmarkResults(benchmarkOutput);
-    await updateReadme(results);
+    const versions = await getVersions();
+    await updateReadme(results, versions);
 
     console.log("README has been updated with the latest benchmark results");
   } catch (error) {
