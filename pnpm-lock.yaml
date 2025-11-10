@@ -9,16 +9,16 @@ importers:
   .:
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.3.4
+        specifier: ^2.3.4
         version: 2.3.4
       '@prettier/plugin-oxc':
         specifier: ^0.0.4
         version: 0.0.4
       oxfmt:
-        specifier: 0.11.0
+        specifier: ^0.11.0
         version: 0.11.0
       prettier:
-        specifier: 3.6.2
+        specifier: ^3.6.2
         version: 3.6.2
 
 packages:
