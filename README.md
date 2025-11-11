@@ -24,6 +24,11 @@ pnpm run setup
 # Run the benchmark
 pnpm run bench
 ```
+## Notes
+
+- Each formatter runs on the exact same codebase state (git reset between runs)
+- Times include both parsing and formatting of all matched files
+- I intended to bench checker.ts, but it appears to be running for a very long time or stuck with 100% CPU.
 
 ## Benchmark Details
 
@@ -101,9 +106,3 @@ Summary
 Benchmark complete!
 ```
 <!-- BENCHMARK_RESULTS_END -->
-
-## Notes
-
-- Each formatter runs on the exact same codebase state (git reset between runs)
-- Times include both parsing and formatting of all matched files
-- I intended to bench checker.ts, but it appears to be running for a very long time or stuck with 100% CPU.
