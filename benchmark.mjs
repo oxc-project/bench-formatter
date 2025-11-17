@@ -1,20 +1,16 @@
 #!/usr/bin/env node
 
 import { execSync, spawn } from 'child_process';
-import { existsSync, copyFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { existsSync } from 'fs';
 
 // Formatter commands
+// Target pure JS/TSX files with default config, disable embedded formatting
 const formatters = {
   prettier_format: (files) =>
-    `./node_modules/.bin/prettier ${files} --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown`,
+    `./node_modules/.bin/prettier ${files} --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown`,
 
   prettier_oxc_format: (files) =>
-    `./node_modules/.bin/prettier ${files} --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`,
+    `./node_modules/.bin/prettier ${files} --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`,
 
   biome_format: (files) =>
     `./node_modules/.bin/biome format --write --files-ignore-unknown=true ${files}`,
