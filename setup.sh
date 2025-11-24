@@ -7,7 +7,7 @@ pnpm install
 # Clone Outline repository if not exists
 if [ ! -d "outline" ]; then
   echo "Cloning Outline repository..."
-  git clone --depth=1 git@github.com:outline/outline.git
+  git clone --depth=1 https://github.com/outline/outline.git
 else
   echo "Outline repository already exists"
 fi
