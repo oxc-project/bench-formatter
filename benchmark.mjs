@@ -3,6 +3,9 @@
 import { execSync, spawn } from 'child_process';
 import { existsSync } from 'fs';
 
+// Constants
+const KB_TO_MB = 1024;
+
 // Detect GNU time binary
 let gnuTimeBinary = null;
 try {
@@ -53,8 +56,10 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
         // Skip if GNU time is not available
         return null;
       }
-      // Use execSync with shell:true, but the command strings are controlled by us (not user input)
-      // so this is safe. The escaping prevents any issues with quotes in our controlled strings.
+      // gnuTimeBinary is set at module load time to either 'gtime' or '/usr/bin/time'
+      // from a controlled check, so it's safe to use in shell execution.
+      // The formatter command strings are also controlled by us (not user input).
+      // The escaping prevents any issues with quotes in our controlled strings.
       const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
         `${gnuTimeBinary} -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
@@ -81,9 +86,9 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
   
   return {
     name,
-    mean: (mean / 1024).toFixed(1), // Convert to MB
-    min: (min / 1024).toFixed(1),
-    max: (max / 1024).toFixed(1)
+    mean: (mean / KB_TO_MB).toFixed(1), // Convert to MB
+    min: (min / KB_TO_MB).toFixed(1),
+    max: (max / KB_TO_MB).toFixed(1)
   };
 }
 
