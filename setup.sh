@@ -7,7 +7,7 @@ pnpm install
 # Clone Outline repository if not exists
 if [ ! -d "outline" ]; then
   echo "Cloning Outline repository..."
-  git clone --depth=1 git@github.com:outline/outline.git
+  git clone --depth=1 https://github.com/outline/outline.git
 else
   echo "Outline repository already exists"
 fi
@@ -31,6 +31,19 @@ if ! command -v hyperfine &> /dev/null; then
   echo "On Ubuntu/Debian: apt install hyperfine"
 else
   echo "✓ Hyperfine is installed"
+fi
+
+# Check GNU time installation
+if command -v gtime &> /dev/null; then
+  echo "✓ GNU time is installed (gtime)"
+elif /usr/bin/time --version &> /dev/null; then
+  echo "✓ GNU time is installed (/usr/bin/time)"
+else
+  echo ""
+  echo "⚠️  GNU time is not installed!"
+  echo "Memory benchmarking requires GNU time (not BSD time)"
+  echo "On macOS: brew install gnu-time (installs as gtime)"
+  echo "On Ubuntu/Debian: apt install time"
 fi
 
 echo ""

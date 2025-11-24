@@ -3,3 +3,4 @@ node_modules/
 outline/
 parser.ts
 parser.ts.bak
+hyperfine-*/
