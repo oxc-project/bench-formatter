@@ -1,6 +1,6 @@
 # JavaScript/TypeScript Formatter Benchmark
 
-Comparing execution time of **Prettier**, **Biome**, and **Oxfmt** on the Kibana repository (2M+ lines of code).
+Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfmt** on the Kibana repository (2M+ lines of code).
 
 ## Formatters
 
@@ -28,6 +28,7 @@ pnpm run bench
 
 - Each formatter runs on the exact same codebase state (git reset between runs)
 - Times include both parsing and formatting of all matched files
+- Memory measurements track peak resident set size (RSS) during execution
 - I intended to bench checker.ts, but it appears to be running for a very long time or stuck with 100% CPU.
 
 ## Benchmark Details
@@ -38,6 +39,7 @@ pnpm run bench
   - 3 warmup runs before measurement
   - 10 benchmark runs for statistical accuracy
   - Git reset before each run to ensure identical starting conditions
+  - Memory usage measured using GNU time (peak RSS)
   - Local binaries via `./node_modules/.bin/`
   - prettier:
     - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown`
