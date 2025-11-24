@@ -33,5 +33,16 @@ else
   echo "✓ Hyperfine is installed"
 fi
 
+# Check GNU time installation
+if ! /usr/bin/time --version &> /dev/null; then
+  echo ""
+  echo "⚠️  GNU time is not installed!"
+  echo "Memory benchmarking requires GNU time (not BSD time)"
+  echo "On macOS: brew install gnu-time (then use /usr/local/bin/gtime)"
+  echo "On Ubuntu/Debian: apt install time"
+else
+  echo "✓ GNU time is installed"
+fi
+
 echo ""
 echo "Setup complete! Run 'pnpm run bench' to start benchmarking."

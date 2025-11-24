@@ -136,6 +136,14 @@ async function main() {
     process.exit(1);
   }
 
+  // Check if GNU time is available
+  try {
+    execSync('/usr/bin/time --version', { stdio: 'ignore' });
+  } catch (e) {
+    console.warn('Warning: GNU time not found. Memory benchmarking will be skipped.');
+    console.warn('Install GNU time to enable memory benchmarking.');
+  }
+
   console.log('Starting benchmark with:');
   console.log('- 3 warmup runs');
   console.log('- 10 benchmark runs');
