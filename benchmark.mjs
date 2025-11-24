@@ -2,10 +2,6 @@
 
 import { execSync, spawn } from 'child_process';
 import { existsSync } from 'fs';
-import { promisify } from 'util';
-import { exec } from 'child_process';
-
-const execAsync = promisify(exec);
 
 // Formatter commands
 // Target pure JS/TSX files with default config, disable embedded formatting
@@ -39,8 +35,10 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
     
     // Run the command with GNU time to measure memory
     try {
+      // Use sh -c with properly escaped command
+      const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
-        `/usr/bin/time -f '%M' sh -c "${command}" 2>&1 | tail -1`,
+        `/usr/bin/time -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
         { encoding: 'utf8', stdio: 'pipe' }
       );
       const memKB = parseInt(output.trim());
