@@ -35,13 +35,14 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
     
     // Run the command with GNU time to measure memory
     try {
-      // Use sh -c with properly escaped command
+      // Use execSync with shell:true, but the command strings are controlled by us (not user input)
+      // so this is safe. The escaping prevents any issues with quotes in our controlled strings.
       const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
         `/usr/bin/time -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
-        { encoding: 'utf8', stdio: 'pipe' }
+        { encoding: 'utf8', stdio: 'pipe', shell: '/bin/bash' }
       );
-      const memKB = parseInt(output.trim());
+      const memKB = parseInt(output.trim(), 10);
       if (!isNaN(memKB)) {
         measurements.push(memKB);
       }
