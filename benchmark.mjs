@@ -63,7 +63,7 @@ async function measureMemory(name, command, prepareCmd, runs = MEMORY_BENCHMARK_
       const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
         `${gnuTimeBinary} -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
-        { encoding: 'utf8', stdio: 'pipe', shell: '/bin/bash' }
+        { encoding: 'utf8', stdio: 'pipe' }
       );
       const memKB = Number.parseInt(output.trim(), 10);
       if (!isNaN(memKB)) {
