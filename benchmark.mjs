@@ -5,6 +5,7 @@ import { existsSync } from 'fs';
 
 // Constants
 const KB_TO_MB = 1024;
+const MEMORY_BENCHMARK_RUNS = 10;
 
 // Detect GNU time binary
 let gnuTimeBinary = null;
@@ -37,7 +38,10 @@ const formatters = {
 };
 
 // Memory measurement function
-async function measureMemory(name, command, prepareCmd, runs = 10) {
+// Uses GNU time (gtime on macOS, /usr/bin/time on Linux) to measure peak RSS memory.
+// gnuTimeBinary is set at module load time from a controlled check.
+// Formatter command strings are controlled by us (not user input).
+async function measureMemory(name, command, prepareCmd, runs = MEMORY_BENCHMARK_RUNS) {
   const measurements = [];
   
   for (let i = 0; i < runs; i++) {
@@ -56,16 +60,12 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
         // Skip if GNU time is not available
         return null;
       }
-      // gnuTimeBinary is set at module load time to either 'gtime' or '/usr/bin/time'
-      // from a controlled check, so it's safe to use in shell execution.
-      // The formatter command strings are also controlled by us (not user input).
-      // The escaping prevents any issues with quotes in our controlled strings.
       const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
         `${gnuTimeBinary} -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
         { encoding: 'utf8', stdio: 'pipe', shell: '/bin/bash' }
       );
-      const memKB = parseInt(output.trim(), 10);
+      const memKB = Number.parseInt(output.trim(), 10);
       if (!isNaN(memKB)) {
         measurements.push(memKB);
       }
@@ -117,7 +117,7 @@ async function runMemoryBenchmarks(benchmarks) {
       bench.name,
       bench.command,
       bench.prepare,
-      10
+      MEMORY_BENCHMARK_RUNS
     );
     if (result) {
       results.push(result);
