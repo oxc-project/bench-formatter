@@ -34,14 +34,16 @@ else
 fi
 
 # Check GNU time installation
-if ! /usr/bin/time --version &> /dev/null; then
+if command -v gtime &> /dev/null; then
+  echo "✓ GNU time is installed (gtime)"
+elif /usr/bin/time --version &> /dev/null; then
+  echo "✓ GNU time is installed (/usr/bin/time)"
+else
   echo ""
   echo "⚠️  GNU time is not installed!"
   echo "Memory benchmarking requires GNU time (not BSD time)"
-  echo "On macOS: brew install gnu-time (then use /usr/local/bin/gtime)"
+  echo "On macOS: brew install gnu-time (installs as gtime)"
   echo "On Ubuntu/Debian: apt install time"
-else
-  echo "✓ GNU time is installed"
 fi
 
 echo ""

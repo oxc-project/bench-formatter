@@ -3,6 +3,20 @@
 import { execSync, spawn } from 'child_process';
 import { existsSync } from 'fs';
 
+// Detect GNU time binary
+let gnuTimeBinary = null;
+try {
+  execSync('gtime --version', { stdio: 'ignore' });
+  gnuTimeBinary = 'gtime';
+} catch (e) {
+  try {
+    execSync('/usr/bin/time --version', { stdio: 'ignore' });
+    gnuTimeBinary = '/usr/bin/time';
+  } catch (e2) {
+    // GNU time not available, will be checked in main()
+  }
+}
+
 // Formatter commands
 // Target pure JS/TSX files with default config, disable embedded formatting
 const formatters = {
@@ -35,11 +49,15 @@ async function measureMemory(name, command, prepareCmd, runs = 10) {
     
     // Run the command with GNU time to measure memory
     try {
+      if (!gnuTimeBinary) {
+        // Skip if GNU time is not available
+        return null;
+      }
       // Use execSync with shell:true, but the command strings are controlled by us (not user input)
       // so this is safe. The escaping prevents any issues with quotes in our controlled strings.
       const escapedCommand = command.replace(/'/g, "'\\''");
       const output = execSync(
-        `/usr/bin/time -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
+        `${gnuTimeBinary} -f '%M' sh -c '${escapedCommand}' 2>&1 | tail -1`,
         { encoding: 'utf8', stdio: 'pipe', shell: '/bin/bash' }
       );
       const memKB = parseInt(output.trim(), 10);
@@ -137,11 +155,11 @@ async function main() {
   }
 
   // Check if GNU time is available
-  try {
-    execSync('/usr/bin/time --version', { stdio: 'ignore' });
-  } catch (e) {
+  if (!gnuTimeBinary) {
     console.warn('Warning: GNU time not found. Memory benchmarking will be skipped.');
-    console.warn('Install GNU time to enable memory benchmarking.');
+    console.warn('Install GNU time to enable memory benchmarking:');
+    console.warn('  macOS: brew install gnu-time (installs as gtime)');
+    console.warn('  Linux: apt install time or yum install time');
   }
 
   console.log('Starting benchmark with:');
