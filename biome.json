@@ -4,7 +4,13 @@
     "useIgnoreFile": false
   },
   "formatter": {
-    "includes": ["./outline/**/*.{js,jsx,ts,tsx}", "./parser.ts"],
+    "includes": [
+      "outline/**/*.js",
+      "outline/**/*.jsx",
+      "outline/**/*.ts",
+      "outline/**/*.tsx",
+      "parser.ts"
+    ],
     "formatWithErrors": true
   },
   "linter": {
