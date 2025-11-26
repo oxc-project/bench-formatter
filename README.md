@@ -1,6 +1,6 @@
 # JavaScript/TypeScript Formatter Benchmark
 
-Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfmt** on the Kibana repository (2M+ lines of code).
+Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfmt**.
 
 ## Formatters
 
@@ -18,7 +18,7 @@ Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfm
 ## Setup
 
 ```bash
-# Install dependencies and clone Kibana repository
+# Install dependencies and clone fixtures
 pnpm run setup
 
 # Run the benchmark
