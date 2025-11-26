@@ -7,7 +7,7 @@ Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfm
 - [Prettier](https://prettier.io/)
 - [Prettier](https://prettier.io/) + @prettier/plugin-oxc
 - [Biome](https://biomejs.dev/) Formatter
-- [Oxfmt](https://oxc.rs):
+- [Oxfmt](https://oxc.rs)
 
 ## Versions
 
@@ -24,6 +24,7 @@ pnpm run setup
 # Run the benchmark
 pnpm run bench
 ```
+
 ## Notes
 
 - Each formatter runs on the exact same codebase state (git reset between runs)
