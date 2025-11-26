@@ -1,13 +1,13 @@
 # JavaScript/TypeScript Formatter Benchmark
 
-Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfmt** on the Kibana repository (2M+ lines of code).
+Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfmt**.
 
 ## Formatters
 
 - [Prettier](https://prettier.io/)
 - [Prettier](https://prettier.io/) + @prettier/plugin-oxc
 - [Biome](https://biomejs.dev/) Formatter
-- [Oxfmt](https://oxc.rs):
+- [Oxfmt](https://oxc.rs)
 
 ## Versions
 
@@ -18,12 +18,13 @@ Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfm
 ## Setup
 
 ```bash
-# Install dependencies and clone Kibana repository
+# Install dependencies and clone fixtures
 pnpm run setup
 
 # Run the benchmark
 pnpm run bench
 ```
+
 ## Notes
 
 - Each formatter runs on the exact same codebase state (git reset between runs)
@@ -33,8 +34,9 @@ pnpm run bench
 
 ## Benchmark Details
 
-- **Test Data**: [Outline](https://github.com/outline/outline) repository (1915 js,jsx,ts,tsx files)
-- **File Patterns**: `**/*.{js,jsx,ts,tsx}`
+- **Test Data**:
+  - [Outline](https://github.com/outline/outline) repository (1925 files, ~198K lines of JS/JSX/TS/TSX code)
+  - TypeScript compiler's [parser.ts](https://github.com/microsoft/TypeScript/blob/v5.9.2/src/compiler/parser.ts) (~13.7K lines, single large file)
 - **Methodology**:
   - 3 warmup runs before measurement
   - 10 benchmark runs for statistical accuracy
@@ -42,14 +44,13 @@ pnpm run bench
   - Memory usage measured using GNU time (peak RSS)
   - Local binaries via `./node_modules/.bin/`
   - prettier:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown`
   - prettier + oxc plugin:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
   - biome:
     - `./node_modules/.bin/biome format --write --files-ignore-unknown=true "$@"`
-  - oxc:
+  - oxfmt:
     - `./node_modules/.bin/oxfmt "$@"`
-`
 
 ## Results
 
