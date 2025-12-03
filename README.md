@@ -44,9 +44,9 @@ pnpm run bench
   - Memory usage measured using GNU time (peak RSS)
   - Local binaries via `./node_modules/.bin/`
   - prettier:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown`
   - prettier + oxc plugin:
-    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --no-config --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
+    - `./node_modules/.bin/prettier "$@" --write --experimental-cli --embedded-language-formatting=off --ignore-path=.prettierignore --no-cache --ignore-unknown --plugin @prettier/plugin-oxc`
   - biome:
     - `./node_modules/.bin/biome format --write --files-ignore-unknown=true "$@"`
   - oxfmt:
