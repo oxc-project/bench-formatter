@@ -227,7 +227,7 @@ async function main() {
       formatters.prettier_format('"outline/**/*.{js,jsx,ts,tsx}"'),
       formatters.prettier_oxc_format('"outline/**/*.{js,jsx,ts,tsx}"'),
       formatters.biome_format('outline'),
-      formatters.oxfmt_format('outline')
+      formatters.oxfmt_format('outline/**/*.{js,ts,tsx}')
     ]);
 
     // Memory benchmarks for Outline
