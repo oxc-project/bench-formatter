@@ -1,4 +1,11 @@
 {
   "printWidth": 80,
-  "useTabs": true
+  "useTabs": true,
+  "ignorePatterns": [
+    "**/*.css",
+    "**/*.html",
+    "**/*.md",
+    "**/*.yml",
+    "**/*.json"
+  ]
 }
