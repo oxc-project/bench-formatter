@@ -13,7 +13,7 @@ Comparing execution time and memory usage of **Prettier**, **Biome**, and **Oxfm
 
 - **Prettier**: 3.7.4
 - **Biome**: 2.3.8
-- **Oxfmt**: 0.17.0
+- **Oxfmt**: 0.18.0
 
 ## Setup
 
@@ -60,61 +60,61 @@ pnpm run bench
 Benchmarking parser.ts (single large file)
 =========================================
 Benchmark 1: prettier
-  Time (mean ± σ):      1.118 s ±  0.056 s    [User: 2.235 s, System: 0.219 s]
-  Range (min … max):    1.073 s …  1.267 s    10 runs
+  Time (mean ± σ):      1.092 s ±  0.019 s    [User: 2.212 s, System: 0.221 s]
+  Range (min … max):    1.055 s …  1.127 s    10 runs
  
 Benchmark 2: prettier+oxc-parser
-  Time (mean ± σ):     827.7 ms ±  14.9 ms    [User: 1370.8 ms, System: 140.5 ms]
-  Range (min … max):   796.8 ms … 850.0 ms    10 runs
+  Time (mean ± σ):     856.5 ms ±  33.3 ms    [User: 1404.8 ms, System: 152.1 ms]
+  Range (min … max):   804.0 ms … 893.6 ms    10 runs
  
 Benchmark 3: biome
-  Time (mean ± σ):     156.2 ms ±  55.7 ms    [User: 107.9 ms, System: 28.8 ms]
-  Range (min … max):   133.0 ms … 313.4 ms    10 runs
+  Time (mean ± σ):     135.6 ms ±   2.0 ms    [User: 106.2 ms, System: 27.7 ms]
+  Range (min … max):   132.4 ms … 139.1 ms    10 runs
  
 Benchmark 4: oxfmt
-  Time (mean ± σ):      53.3 ms ±   0.5 ms    [User: 37.7 ms, System: 21.6 ms]
-  Range (min … max):    52.7 ms …  54.1 ms    10 runs
+  Time (mean ± σ):     111.2 ms ±   6.0 ms    [User: 214.1 ms, System: 54.6 ms]
+  Range (min … max):   106.7 ms … 126.6 ms    10 runs
  
 Summary
   oxfmt ran
-    2.93 ± 1.04 times faster than biome
-   15.52 ± 0.31 times faster than prettier+oxc-parser
-   20.96 ± 1.06 times faster than prettier
+    1.22 ± 0.07 times faster than biome
+    7.70 ± 0.51 times faster than prettier+oxc-parser
+    9.82 ± 0.55 times faster than prettier
 
 Memory Usage:
-  prettier: 278.8 MB (min: 252.3 MB, max: 310.5 MB)
-  prettier+oxc-parser: 237.6 MB (min: 233.9 MB, max: 241.9 MB)
-  biome: 63.1 MB (min: 61.7 MB, max: 64.5 MB)
-  oxfmt: 102.4 MB (min: 102.2 MB, max: 102.5 MB)
+  prettier: 267.2 MB (min: 259.3 MB, max: 279.3 MB)
+  prettier+oxc-parser: 236.5 MB (min: 233.6 MB, max: 239.1 MB)
+  biome: 62.4 MB (min: 61.7 MB, max: 64.3 MB)
+  oxfmt: 125.3 MB (min: 125.2 MB, max: 125.6 MB)
 
 =========================================
 Benchmarking Outline repository
 =========================================
 Benchmark 1: prettier
-  Time (mean ± σ):      9.734 s ±  0.126 s    [User: 32.042 s, System: 3.017 s]
-  Range (min … max):    9.553 s …  9.901 s    10 runs
+  Time (mean ± σ):      9.892 s ±  0.173 s    [User: 32.651 s, System: 3.008 s]
+  Range (min … max):    9.652 s … 10.159 s    10 runs
  
 Benchmark 2: prettier+oxc-parser
-  Time (mean ± σ):      6.868 s ±  0.078 s    [User: 20.435 s, System: 2.192 s]
-  Range (min … max):    6.769 s …  7.051 s    10 runs
+  Time (mean ± σ):      6.867 s ±  0.072 s    [User: 20.446 s, System: 2.182 s]
+  Range (min … max):    6.766 s …  7.007 s    10 runs
  
 Benchmark 3: biome
-  Time (mean ± σ):     886.9 ms ±  91.0 ms    [User: 2706.3 ms, System: 377.8 ms]
-  Range (min … max):   830.4 ms … 1060.1 ms    10 runs
+  Time (mean ± σ):     867.8 ms ±  67.1 ms    [User: 2711.0 ms, System: 387.4 ms]
+  Range (min … max):   833.9 ms … 1057.2 ms    10 runs
  
 Benchmark 4: oxfmt
-  Time (mean ± σ):     280.6 ms ±   5.1 ms    [User: 678.6 ms, System: 235.9 ms]
-  Range (min … max):   272.7 ms … 286.4 ms    10 runs
+  Time (mean ± σ):     108.8 ms ±   1.6 ms    [User: 214.2 ms, System: 56.0 ms]
+  Range (min … max):   107.2 ms … 112.7 ms    10 runs
  
 Summary
   oxfmt ran
-    3.16 ± 0.33 times faster than biome
-   24.47 ± 0.52 times faster than prettier+oxc-parser
-   34.69 ± 0.77 times faster than prettier
+    7.97 ± 0.63 times faster than biome
+   63.09 ± 1.13 times faster than prettier+oxc-parser
+   90.88 ± 2.07 times faster than prettier
 
 Memory Usage:
-  biome: 63.2 MB (min: 59.8 MB, max: 66.2 MB)
-  oxfmt: 144.9 MB (min: 134.8 MB, max: 151.6 MB)
+  biome: 65.0 MB (min: 62.7 MB, max: 67.4 MB)
+  oxfmt: 125.3 MB (min: 125.0 MB, max: 125.7 MB)
 
 Benchmark complete!
 ```
