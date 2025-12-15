@@ -6,6 +6,8 @@
     "**/*.html",
     "**/*.md",
     "**/*.yml",
-    "**/*.json"
+    "**/*.json",
+    "!parser.ts",
+    "!outline"
   ]
 }
