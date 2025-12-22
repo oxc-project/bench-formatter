@@ -32,14 +32,14 @@ jobs:
 
       - uses: oxc-project/setup-node@141eb77546de6702f92d320926403fe3f9f6a6f2 # v1.0.5
 
-      - uses: taiki-e/install-action@61e5998d108b2b55a81b9b386c18bd46e4237e4f # v2.63.1
+      - uses: taiki-e/install-action@b9c5db3aef04caffaf95a1d03931de10fb2a140f # v2.65.1
         with:
           tool: hyperfine
 
       - run: pnpm run setup
       - run: pnpm run bench:update-readme
 
-      - uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0
+      - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           commit_message: 'chore: update benchmark results in README [skip ci]'
