@@ -21,7 +21,7 @@ function extractBenchmarkResults(output) {
   // Extract everything from "=========================================" onwards
   // This captures both the parser.ts and outline repository benchmarks
   const benchmarkStartMatch = output.match(
-    /=========================================\nBenchmarking .*?\n=========================================\n([\s\S]*)/
+    /=========================================\nBenchmarking .*?\n=========================================\n([\s\S]*)/,
   );
 
   if (!benchmarkStartMatch) {
@@ -76,17 +76,14 @@ ${benchmarkResults}
 \`\`\``;
 
   // Replace the content between markers
-  const beforeMarker = readmeContent.substring(
-    0,
-    startIndex + startMarker.length
-  );
+  const beforeMarker = readmeContent.substring(0, startIndex + startMarker.length);
   const afterMarker = readmeContent.substring(endIndex);
 
-  readmeContent =
-    beforeMarker + "\n" + newBenchmarkContent + "\n" + afterMarker;
+  readmeContent = beforeMarker + "\n" + newBenchmarkContent + "\n" + afterMarker;
 
   // Update versions section
-  const versionsRegex = /## Versions\n\n- \*\*Prettier\*\*: .*\n- \*\*Biome\*\*: .*\n- \*\*Oxfmt\*\*: .*/;
+  const versionsRegex =
+    /## Versions\n\n- \*\*Prettier\*\*: .*\n- \*\*Biome\*\*: .*\n- \*\*Oxfmt\*\*: .*/;
   const newVersionsContent = `## Versions\n\n- **Prettier**: ${versions.prettier}\n- **Biome**: ${versions.biome}\n- **Oxfmt**: ${versions.oxfmt}`;
 
   if (versionsRegex.test(readmeContent)) {

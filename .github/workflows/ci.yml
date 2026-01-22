@@ -25,10 +25,11 @@ jobs:
         with:
           token: ${{ secrets.OXC_BOT_PAT }}
 
+      # This is not required step, but CI can be faster with cache
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           repository: outline/outline
-          path: outline
+          path: bench-js-no-embedded/data
 
       - uses: oxc-project/setup-node@8958a8e040102244b619c4a94fccb657a44b1c21 # v1.0.6
 
@@ -36,8 +37,7 @@ jobs:
         with:
           tool: hyperfine
 
-      - run: pnpm run setup
-      - run: pnpm run bench:update-readme
+      - run: pnpm run update-readme
 
       - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
