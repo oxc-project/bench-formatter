@@ -8,7 +8,11 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Benchmark scenarios to run
-const scenarios = ["bench-large-single-file", "bench-js-no-embedded"];
+const scenarios = [
+  "bench-large-single-file",
+  "bench-js-no-embedded",
+  "bench-mixed-embedded",
+];
 
 async function runScenario(scenario) {
   return new Promise((resolve, reject) => {
@@ -28,6 +32,7 @@ async function main() {
   // Run setup if needed
   if (
     !existsSync("bench-js-no-embedded/data") ||
+    !existsSync("bench-mixed-embedded/data") ||
     !existsSync("bench-large-single-file/data/parser.ts")
   ) {
     console.log("Running setup...");

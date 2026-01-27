@@ -12,6 +12,14 @@ else
 	echo "Outline repository already exists"
 fi
 
+# Clone Outline repository for mixed-embedded benchmark if not exists
+if [ ! -d "bench-mixed-embedded/data" ]; then
+	echo "Cloning Outline repository for mixed-embedded benchmark..."
+	git clone --depth=1 https://github.com/outline/outline.git bench-mixed-embedded/data
+else
+	echo "Outline repository for mixed-embedded already exists"
+fi
+
 # Download TypeScript compiler parser.ts if not exists
 if [ ! -f "bench-large-single-file/data/parser.ts" ]; then
 	echo "Downloading TypeScript compiler parser.ts..."
