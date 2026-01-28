@@ -34,6 +34,10 @@ jobs:
         with:
           repository: storybookjs/storybook
           path: bench-mixed-embedded/data
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: continuedev/continue
+          path: bench-full-features/data
 
       - uses: oxc-project/setup-node@8958a8e040102244b619c4a94fccb657a44b1c21 # v1.0.6
 

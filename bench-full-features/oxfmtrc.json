@@ -1,0 +1,11 @@
+{
+  "$schema": "../node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "experimentalSortPackageJson": {},
+  "experimentalSortImports": {},
+  "experimentalTailwindcss": {
+    "config": "./data/gui/tailwind.config.cjs",
+    "functions": ["cn"]
+  },
+  "ignorePatterns": ["*.toml"]
+}
