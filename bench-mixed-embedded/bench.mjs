@@ -9,8 +9,8 @@ import {
   setupCwd,
 } from "../shared/utils.mjs";
 
-const WARMUP_RUNS = 2;
-const BENCHMARK_RUNS = 6;
+const WARMUP_RUNS = 1;
+const BENCHMARK_RUNS = 3;
 
 async function main() {
   setupCwd(import.meta.url);
@@ -23,12 +23,12 @@ async function main() {
   checkGnuTime();
 
   console.log("");
-  console.log("Target: Outline repository (mixed with embedded languages)");
+  console.log("Target: Storybook repository (mixed with embedded languages)");
   console.log(`- ${WARMUP_RUNS} warmup runs, ${BENCHMARK_RUNS} benchmark runs`);
   console.log("- Git reset before each run");
   console.log("");
 
-  const prepareCmd = `git -C ${dataDir} reset --hard`;
+  const prepareCmd = `git -C ${dataDir} reset --hard && find ${dataDir} -name 'prettier.config.*' -o -name '.prettierrc*' | xargs rm -f`;
 
   await runHyperfine([
     "--ignore-failure",
