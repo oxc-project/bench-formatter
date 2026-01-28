@@ -37,7 +37,7 @@ node ./bench-full-features/bench.mjs
   - TypeScript compiler's [parser.ts](https://github.com/microsoft/TypeScript/blob/v5.9.2/src/compiler/parser.ts) (~13.7K lines, single large file)
   - [Outline](https://github.com/outline/outline) repository (JS/JSX/TS/TSX only)
   - [Storybook](https://github.com/storybookjs/storybook) repository (mixed with embedded languages)
-  - [Headplane](https://github.com/tale/headplane) repository (full features: sort imports + Tailwind CSS)
+  - [Continue](https://github.com/continuedev/continue) repository (full features: sort imports + Tailwind CSS)
 - **Methodology**:
   - Multiple warmup runs before measurement
   - Multiple benchmark runs for statistical accuracy

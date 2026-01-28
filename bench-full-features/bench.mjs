@@ -9,8 +9,8 @@ import {
   setupCwd,
 } from "../shared/utils.mjs";
 
-const WARMUP_RUNS = 2;
-const BENCHMARK_RUNS = 5;
+const WARMUP_RUNS = 1;
+const BENCHMARK_RUNS = 1;
 
 async function main() {
   setupCwd(import.meta.url);
@@ -23,7 +23,7 @@ async function main() {
   checkGnuTime();
 
   console.log("");
-  console.log("Target: Headplane repository (full features)");
+  console.log("Target: Continue repository (full features)");
   console.log(`- ${WARMUP_RUNS} warmup runs, ${BENCHMARK_RUNS} benchmark runs`);
   console.log("- Git reset before each run");
   console.log("");
