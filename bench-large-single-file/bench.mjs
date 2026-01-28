@@ -43,7 +43,7 @@ async function main() {
     "-n=biome",
     "-n=oxfmt",
     formatters.prettier(dataFile),
-    formatters.prettier_oxc(dataFile),
+    formatters.prettier(dataFile, "prettierrc-oxc.json"),
     formatters.biome(dataFile),
     formatters.oxfmt(dataFile),
   ]);
@@ -57,7 +57,7 @@ async function main() {
       },
       {
         name: "prettier+oxc-parser",
-        command: formatters.prettier_oxc(dataFile),
+        command: formatters.prettier(dataFile, "prettierrc-oxc.json"),
         prepare: prepareCmd,
       },
       {

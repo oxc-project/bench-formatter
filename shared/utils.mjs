@@ -18,11 +18,8 @@ export function createFormatters(projectRoot, configDir) {
 
   // NOTE: Do not use `--experimental-cli`, as it seems to behave differently than the stable CLI...
   return {
-    prettier: (files) =>
-      `${prettierBin} ${files} --write --config ${configDir}/prettierrc.json --ignore-path ${configDir}/prettierignore --ignore-unknown`,
-
-    prettier_oxc: (files) =>
-      `${prettierBin} ${files} --write --config ${configDir}/prettierrc.json --ignore-path ${configDir}/prettierignore --ignore-unknown --plugin @prettier/plugin-oxc`,
+    prettier: (files, configFile = "prettierrc.json") =>
+      `${prettierBin} ${files} --write --config ${configDir}/${configFile} --ignore-path ${configDir}/prettierignore --ignore-unknown`,
 
     biome: (files) =>
       `${biomeBin} format --write --files-ignore-unknown=true --config-path ${configDir} ${files}`,
