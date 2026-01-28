@@ -39,7 +39,7 @@ async function main() {
     "--shell=bash",
     "-n=prettier+oxc-parser",
     "-n=oxfmt",
-    formatters.prettier_oxc(dataDir),
+    formatters.prettier(dataDir),
     formatters.oxfmt(dataDir),
   ]);
 
@@ -47,7 +47,7 @@ async function main() {
     [
       {
         name: "prettier+oxc-parser",
-        command: formatters.prettier_oxc(dataDir),
+        command: formatters.prettier(dataDir),
         prepare: prepareCmd,
       },
       {
