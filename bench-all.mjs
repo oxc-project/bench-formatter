@@ -12,6 +12,7 @@ const scenarios = [
   "bench-large-single-file",
   "bench-js-no-embedded",
   "bench-mixed-embedded",
+  "bench-full-features",
 ];
 
 async function runScenario(scenario) {
@@ -33,6 +34,7 @@ async function main() {
   if (
     !existsSync("bench-js-no-embedded/data") ||
     !existsSync("bench-mixed-embedded/data") ||
+    !existsSync("bench-full-features/data") ||
     !existsSync("bench-large-single-file/data/parser.ts")
   ) {
     console.log("Running setup...");

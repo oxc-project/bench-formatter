@@ -18,8 +18,10 @@ pnpm run bench
 
 # Or explicit benchmark with manual setup
 ./init.sh
-pnpm run bench:large-single-file
-pnpm run bench:js-no-embedded
+node ./bench-large-single-file/bench.mjs
+node ./bench-js-no-embedded/bench.mjs
+node ./bench-mixed-embedded/bench.mjs
+node ./bench-full-features/bench.mjs
 ```
 
 ## Notes
@@ -32,11 +34,13 @@ pnpm run bench:js-no-embedded
 ## Benchmark Details
 
 - **Test Data**:
-  - [Outline](https://github.com/outline/outline) repository (1925 files, ~198K lines of JS/JSX/TS/TSX code)
   - TypeScript compiler's [parser.ts](https://github.com/microsoft/TypeScript/blob/v5.9.2/src/compiler/parser.ts) (~13.7K lines, single large file)
+  - [Outline](https://github.com/outline/outline) repository (JS/JSX/TS/TSX only)
+  - [Storybook](https://github.com/storybookjs/storybook) repository (mixed with embedded languages)
+  - [Headplane](https://github.com/tale/headplane) repository (full features: sort imports + Tailwind CSS)
 - **Methodology**:
-  - 3 warmup runs before measurement
-  - 10 benchmark runs for statistical accuracy
+  - Multiple warmup runs before measurement
+  - Multiple benchmark runs for statistical accuracy
   - Git reset before each run to ensure identical starting conditions
   - Memory usage measured using GNU time (peak RSS)
   - Local binaries via `./node_modules/.bin/`

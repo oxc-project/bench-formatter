@@ -20,6 +20,14 @@ else
 	echo "Storybook repository for mixed-embedded already exists"
 fi
 
+# Clone Headplane repository for full-features benchmark if not exists
+if [ ! -d "bench-full-features/data" ]; then
+	echo "Cloning Headplane repository for full-features benchmark..."
+	git clone --depth=1 https://github.com/tale/headplane.git bench-full-features/data
+else
+	echo "Headplane repository for full-features already exists"
+fi
+
 # Download TypeScript compiler parser.ts if not exists
 if [ ! -f "bench-large-single-file/data/parser.ts" ]; then
 	echo "Downloading TypeScript compiler parser.ts..."

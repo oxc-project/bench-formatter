@@ -1,0 +1,20 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "importOrder": [
+    "<TYPES>",
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "<TYPES>^(@|~)(/.*)?$",
+    "^(@|~)(/.*)?$",
+    "^[.]"
+  ],
+  "importOrderTypeScriptVersion": "5.0.0",
+  "tailwindFunctions": ["cn"],
+  "plugins": [
+    "@prettier/plugin-oxc",
+    "prettier-plugin-packagejson",
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ]
+}
