@@ -4,6 +4,7 @@
   "experimentalSortPackageJson": {},
   "experimentalSortImports": {},
   "experimentalTailwindcss": {
+    "config": "./data/gui/tailwind.config.cjs",
     "functions": ["cn"]
   },
   "ignorePatterns": ["*.toml"]

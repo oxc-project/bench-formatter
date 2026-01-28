@@ -10,7 +10,9 @@
     "^[.]"
   ],
   "importOrderTypeScriptVersion": "5.0.0",
+  "importOrderParserPlugins" : ["typescript", "jsx", "decorators"],
   "tailwindFunctions": ["cn"],
+  "tailwindConfig": "./gui/tailwind.config.cjs",
   "plugins": [
     "@prettier/plugin-oxc",
     "prettier-plugin-packagejson",
