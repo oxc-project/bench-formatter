@@ -133,7 +133,7 @@ JS/TS (no embedded) benchmark complete!
 Benchmarking Mixed (embedded)
 =========================================
 
-Target: Outline repository (mixed with embedded languages)
+Target: Storybook repository (mixed with embedded languages)
 - 2 warmup runs, 6 benchmark runs
 - Git reset before each run
 
