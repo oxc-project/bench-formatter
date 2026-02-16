@@ -49,7 +49,7 @@ node ./bench-full-features/bench.mjs
 
 - **Prettier**: 3.8.1
 - **Biome**: 2.3.15
-- **Oxfmt**: 0.32.0
+- **Oxfmt**: 0.33.0
 
 ## Results
 
@@ -64,32 +64,32 @@ Target: TypeScript compiler parser.ts (~540KB)
 - Copy original before each run
 
 Benchmark 1: prettier
-  Time (mean ± σ):      1.032 s ±  0.019 s    [User: 1.994 s, System: 0.198 s]
-  Range (min … max):    1.006 s …  1.056 s    5 runs
+  Time (mean ± σ):     904.6 ms ±  12.7 ms    [User: 1903.6 ms, System: 136.4 ms]
+  Range (min … max):   893.3 ms … 921.9 ms    5 runs
  
 Benchmark 2: prettier+oxc-parser
-  Time (mean ± σ):     713.8 ms ±  11.2 ms    [User: 1147.1 ms, System: 99.0 ms]
-  Range (min … max):   703.8 ms … 730.4 ms    5 runs
+  Time (mean ± σ):     657.3 ms ±   8.0 ms    [User: 1112.2 ms, System: 83.7 ms]
+  Range (min … max):   646.9 ms … 667.5 ms    5 runs
  
 Benchmark 3: biome
-  Time (mean ± σ):     136.5 ms ±   1.8 ms    [User: 108.3 ms, System: 27.1 ms]
-  Range (min … max):   134.1 ms … 138.7 ms    5 runs
+  Time (mean ± σ):     129.1 ms ±   2.8 ms    [User: 100.5 ms, System: 27.0 ms]
+  Range (min … max):   125.1 ms … 132.6 ms    5 runs
  
 Benchmark 4: oxfmt
-  Time (mean ± σ):     165.4 ms ±   5.3 ms    [User: 195.8 ms, System: 82.0 ms]
-  Range (min … max):   160.9 ms … 173.3 ms    5 runs
+  Time (mean ± σ):     151.0 ms ±   6.0 ms    [User: 182.4 ms, System: 67.6 ms]
+  Range (min … max):   143.1 ms … 158.2 ms    5 runs
  
 Summary
   biome ran
-    1.21 ± 0.04 times faster than oxfmt
-    5.23 ± 0.11 times faster than prettier+oxc-parser
-    7.56 ± 0.17 times faster than prettier
+    1.17 ± 0.05 times faster than oxfmt
+    5.09 ± 0.12 times faster than prettier+oxc-parser
+    7.01 ± 0.18 times faster than prettier
 
 Memory Usage:
-  prettier: 245.3 MB (min: 210.0 MB, max: 264.6 MB)
-  prettier+oxc-parser: 169.5 MB (min: 167.8 MB, max: 170.6 MB)
-  biome: 62.5 MB (min: 61.8 MB, max: 64.0 MB)
-  oxfmt: 107.3 MB (min: 107.3 MB, max: 107.4 MB)
+  prettier: 224.2 MB (min: 210.2 MB, max: 245.4 MB)
+  prettier+oxc-parser: 171.6 MB (min: 169.6 MB, max: 175.6 MB)
+  biome: 62.2 MB (min: 62.0 MB, max: 62.5 MB)
+  oxfmt: 107.5 MB (min: 107.4 MB, max: 107.6 MB)
 
 Large single file benchmark complete!
 
@@ -103,32 +103,32 @@ Target: Outline repository (js/ts/tsx only)
 - Git reset before each run
 
 Benchmark 1: prettier
-  Time (mean ± σ):     13.580 s ±  0.156 s    [User: 23.055 s, System: 1.691 s]
-  Range (min … max):   13.286 s … 13.770 s    10 runs
+  Time (mean ± σ):     12.978 s ±  0.109 s    [User: 22.226 s, System: 1.324 s]
+  Range (min … max):   12.786 s … 13.113 s    10 runs
  
 Benchmark 2: prettier+oxc-parser
-  Time (mean ± σ):     11.398 s ±  0.130 s    [User: 15.236 s, System: 1.042 s]
-  Range (min … max):   11.170 s … 11.582 s    10 runs
+  Time (mean ± σ):     11.146 s ±  0.047 s    [User: 15.009 s, System: 0.856 s]
+  Range (min … max):   11.054 s … 11.233 s    10 runs
  
 Benchmark 3: biome
-  Time (mean ± σ):     943.2 ms ±  84.9 ms    [User: 2939.7 ms, System: 415.3 ms]
-  Range (min … max):   894.5 ms … 1133.6 ms    10 runs
+  Time (mean ± σ):     883.2 ms ±  78.8 ms    [User: 2880.2 ms, System: 267.3 ms]
+  Range (min … max):   837.9 ms … 1071.6 ms    10 runs
  
 Benchmark 4: oxfmt
-  Time (mean ± σ):     384.3 ms ±   5.1 ms    [User: 806.4 ms, System: 307.0 ms]
-  Range (min … max):   379.2 ms … 397.0 ms    10 runs
+  Time (mean ± σ):     341.9 ms ±   8.6 ms    [User: 755.7 ms, System: 203.7 ms]
+  Range (min … max):   331.8 ms … 355.6 ms    10 runs
  
 Summary
   oxfmt ran
-    2.45 ± 0.22 times faster than biome
-   29.66 ± 0.52 times faster than prettier+oxc-parser
-   35.33 ± 0.62 times faster than prettier
+    2.58 ± 0.24 times faster than biome
+   32.60 ± 0.83 times faster than prettier+oxc-parser
+   37.95 ± 1.00 times faster than prettier
 
 Memory Usage:
-  prettier: 414.8 MB (min: 378.6 MB, max: 504.4 MB)
-  prettier+oxc-parser: 325.7 MB (min: 315.6 MB, max: 335.1 MB)
-  biome: 63.8 MB (min: 60.0 MB, max: 65.9 MB)
-  oxfmt: 135.3 MB (min: 129.0 MB, max: 145.0 MB)
+  prettier: 432.8 MB (min: 395.5 MB, max: 588.1 MB)
+  prettier+oxc-parser: 329.7 MB (min: 307.1 MB, max: 364.2 MB)
+  biome: 62.8 MB (min: 59.9 MB, max: 65.4 MB)
+  oxfmt: 137.4 MB (min: 129.2 MB, max: 145.2 MB)
 
 JS/TS (no embedded) benchmark complete!
 
@@ -142,20 +142,20 @@ Target: Storybook repository (mixed with embedded languages)
 - Git reset before each run
 
 Benchmark 1: prettier+oxc-parser
-  Time (mean ± σ):     40.208 s ±  0.248 s    [User: 49.361 s, System: 3.826 s]
-  Range (min … max):   40.036 s … 40.492 s    3 runs
+  Time (mean ± σ):     39.849 s ±  0.331 s    [User: 49.373 s, System: 3.154 s]
+  Range (min … max):   39.537 s … 40.197 s    3 runs
  
 Benchmark 2: oxfmt
-  Time (mean ± σ):     12.661 s ±  0.070 s    [User: 45.762 s, System: 4.039 s]
-  Range (min … max):   12.586 s … 12.726 s    3 runs
+  Time (mean ± σ):     11.867 s ±  0.130 s    [User: 43.306 s, System: 3.194 s]
+  Range (min … max):   11.744 s … 12.003 s    3 runs
  
 Summary
   oxfmt ran
-    3.18 ± 0.03 times faster than prettier+oxc-parser
+    3.36 ± 0.05 times faster than prettier+oxc-parser
 
 Memory Usage:
-  prettier+oxc-parser: 1148.2 MB (min: 1146.6 MB, max: 1150.8 MB)
-  oxfmt: 498.0 MB (min: 420.3 MB, max: 553.4 MB)
+  prettier+oxc-parser: 1145.5 MB (min: 1138.7 MB, max: 1156.3 MB)
+  oxfmt: 586.2 MB (min: 551.6 MB, max: 637.5 MB)
 
 Mixed (embedded) benchmark complete!
 
@@ -169,20 +169,20 @@ Target: Continue repository (full features)
 - Git reset before each run
 
 Benchmark 1: prettier+oxc-parser
-  Time (mean ± σ):     59.699 s ±  0.403 s    [User: 63.092 s, System: 11.197 s]
-  Range (min … max):   59.316 s … 60.119 s    3 runs
+  Time (mean ± σ):     53.927 s ±  0.239 s    [User: 57.556 s, System: 8.334 s]
+  Range (min … max):   53.676 s … 54.151 s    3 runs
  
 Benchmark 2: oxfmt
-  Time (mean ± σ):      5.921 s ±  0.112 s    [User: 21.257 s, System: 1.772 s]
-  Range (min … max):    5.792 s …  5.992 s    3 runs
+  Time (mean ± σ):      5.918 s ±  0.141 s    [User: 21.301 s, System: 1.383 s]
+  Range (min … max):    5.756 s …  6.009 s    3 runs
  
 Summary
   oxfmt ran
-   10.08 ± 0.20 times faster than prettier+oxc-parser
+    9.11 ± 0.22 times faster than prettier+oxc-parser
 
 Memory Usage:
-  prettier+oxc-parser: 657.2 MB (min: 654.5 MB, max: 659.0 MB)
-  oxfmt: 328.6 MB (min: 315.7 MB, max: 340.5 MB)
+  prettier+oxc-parser: 661.8 MB (min: 651.7 MB, max: 677.9 MB)
+  oxfmt: 336.3 MB (min: 323.3 MB, max: 353.4 MB)
 
 Full features benchmark complete!
 
