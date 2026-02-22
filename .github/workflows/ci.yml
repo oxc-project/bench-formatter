@@ -41,7 +41,7 @@ jobs:
 
       - uses: oxc-project/setup-node@8958a8e040102244b619c4a94fccb657a44b1c21 # v1.0.6
 
-      - uses: taiki-e/install-action@288875dd3d64326724fa6d9593062d9f8ba0b131 # v2.67.30
+      - uses: taiki-e/install-action@f92912fad184299a31e22ad070a5059fd07d4f59 # v2.68.7
         with:
           tool: hyperfine
 
