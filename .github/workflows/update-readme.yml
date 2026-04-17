@@ -1,0 +1,70 @@
+name: Update README
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pnpm-lock.yaml'
+
+permissions: {}
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update README
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: outline/outline
+          path: bench-js-no-embedded/data
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: storybookjs/storybook
+          path: bench-mixed-embedded/data
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: continuedev/continue
+          path: bench-full-features/data
+
+      - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
+
+      - uses: taiki-e/install-action@0abfcd587b70a713fdaa7fb502c885e2112acb15 # v2.75.7
+        with:
+          tool: hyperfine
+
+      - run: pnpm run update-readme
+
+      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        id: cpr
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: auto/update-readme
+          delete-branch: true
+          title: 'chore: update benchmark results in README'
+          commit-message: 'chore: update benchmark results in README'
+          body: Automated benchmark results update triggered by a change to `pnpm-lock.yaml`.
+          add-paths: README.md
+
+      - if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: gh pr merge --squash --auto --delete-branch "${{ steps.cpr.outputs.pull-request-number }}"
