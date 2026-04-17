@@ -18,19 +18,32 @@ jobs:
   update:
     name: Update README
     runs-on: ubuntu-latest
+    env:
+      APP_CLIENT_ID: ${{ vars.APP_CLIENT_ID || secrets.APP_CLIENT_ID }}
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
     permissions:
       contents: write
       pull-requests: write
     steps:
       - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         id: app-token
+        if: ${{ env.APP_CLIENT_ID != '' }}
         with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          client-id: ${{ env.APP_CLIENT_ID }}
+          private-key: ${{ env.APP_PRIVATE_KEY }}
+
+      # Backward-compatible fallback until APP_CLIENT_ID is configured.
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
+        id: app-token-legacy
+        if: ${{ env.APP_CLIENT_ID == '' }}
+        with:
+          app-id: ${{ env.APP_ID }}
+          private-key: ${{ env.APP_PRIVATE_KEY }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || steps.app-token-legacy.outputs.token }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -56,7 +69,7 @@ jobs:
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         id: cpr
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token || steps.app-token-legacy.outputs.token }}
           branch: auto/update-readme
           delete-branch: true
           title: 'chore: update benchmark results in README'
@@ -66,5 +79,5 @@ jobs:
 
       - if: steps.cpr.outputs.pull-request-number
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token || steps.app-token-legacy.outputs.token }}
         run: gh pr merge --squash --auto --delete-branch "${{ steps.cpr.outputs.pull-request-number }}"
