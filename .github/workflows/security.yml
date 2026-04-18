@@ -21,4 +21,4 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: oxc-project/security-action@bd6b1deb712b7d12c26123d4e1fecc06c0288179 # v0.0.3
+      - uses: oxc-project/security-action@57ad85d07dae1ebcb2ddc237ee89e0c68eaf8c5d # v0.0.4
