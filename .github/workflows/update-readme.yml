@@ -19,8 +19,8 @@ jobs:
     name: Update README
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write # Push the auto/update-readme branch.
+      pull-requests: write # Create and auto-merge the README PR.
     steps:
       - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
         id: app-token
@@ -30,18 +30,22 @@ jobs:
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           token: ${{ steps.app-token.outputs.token }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           repository: outline/outline
           path: bench-js-no-embedded/data
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           repository: storybookjs/storybook
           path: bench-mixed-embedded/data
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
+          persist-credentials: false
           repository: continuedev/continue
           path: bench-full-features/data
 
@@ -53,18 +57,39 @@ jobs:
 
       - run: pnpm run update-readme
 
-      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
-        id: cpr
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-          branch: auto/update-readme
-          delete-branch: true
-          title: 'chore: update benchmark results in README'
-          commit-message: 'chore: update benchmark results in README'
-          body: Automated benchmark results update triggered by a change to `pnpm-lock.yaml`.
-          add-paths: README.md
-
-      - if: steps.cpr.outputs.pull-request-number
+      - id: prepare-pr
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: gh pr merge --squash --auto --delete-branch "${{ steps.cpr.outputs.pull-request-number }}"
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "number=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          gh auth setup-git
+
+          git switch -C auto/update-readme
+          git add README.md
+          git commit -m 'chore: update benchmark results in README'
+          git fetch origin auto/update-readme || true
+          git push --force-with-lease origin HEAD:auto/update-readme
+
+          pr_number="$(gh pr list --head auto/update-readme --base main --state open --json number --jq '.[0].number // ""')"
+          if [ -z "$pr_number" ]; then
+            gh pr create \
+              --base main \
+              --head auto/update-readme \
+              --title 'chore: update benchmark results in README' \
+              --body 'Automated benchmark results update triggered by a change to `pnpm-lock.yaml`.'
+            pr_number="$(gh pr list --head auto/update-readme --base main --state open --json number --jq '.[0].number // ""')"
+          fi
+
+          echo "number=$pr_number" >> "$GITHUB_OUTPUT"
+
+      - if: steps.prepare-pr.outputs.number
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ steps.prepare-pr.outputs.number }}
+        run: gh pr merge --squash --auto --delete-branch "$PR_NUMBER"
