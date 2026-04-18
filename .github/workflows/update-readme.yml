@@ -57,39 +57,19 @@ jobs:
 
       - run: pnpm run update-readme
 
-      - id: prepare-pr
+      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        id: cpr
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: auto/update-readme
+          delete-branch: true
+          title: 'chore: update benchmark results in README'
+          commit-message: 'chore: update benchmark results in README'
+          body: Automated benchmark results update triggered by a change to `pnpm-lock.yaml`.
+          add-paths: README.md
+
+      - if: steps.cpr.outputs.pull-request-number
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          if git diff --quiet -- README.md; then
-            echo "number=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          gh auth setup-git
-
-          git switch -C auto/update-readme
-          git add README.md
-          git commit -m 'chore: update benchmark results in README'
-          git fetch origin auto/update-readme || true
-          git push --force-with-lease origin HEAD:auto/update-readme
-
-          pr_number="$(gh pr list --head auto/update-readme --base main --state open --json number --jq '.[0].number // ""')"
-          if [ -z "$pr_number" ]; then
-            gh pr create \
-              --base main \
-              --head auto/update-readme \
-              --title 'chore: update benchmark results in README' \
-              --body 'Automated benchmark results update triggered by a change to `pnpm-lock.yaml`.'
-            pr_number="$(gh pr list --head auto/update-readme --base main --state open --json number --jq '.[0].number // ""')"
-          fi
-
-          echo "number=$pr_number" >> "$GITHUB_OUTPUT"
-
-      - if: steps.prepare-pr.outputs.number
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR_NUMBER: ${{ steps.prepare-pr.outputs.number }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
         run: gh pr merge --squash --auto --delete-branch "$PR_NUMBER"
