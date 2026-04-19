@@ -22,7 +22,7 @@ jobs:
       contents: write # Push the auto/update-readme branch.
       pull-requests: write # Create and auto-merge the README PR.
     steps:
-      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3
+      - uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
         id: app-token
         with:
           client-id: ${{ secrets.APP_ID }}
@@ -51,13 +51,13 @@ jobs:
 
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
 
-      - uses: taiki-e/install-action@0abfcd587b70a713fdaa7fb502c885e2112acb15 # v2.75.7
+      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: hyperfine
 
       - run: pnpm run update-readme
 
-      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      - uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         id: cpr
         with:
           token: ${{ steps.app-token.outputs.token }}
