@@ -22,7 +22,5 @@ jobs:
   security:
     name: Security Analysis
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # Upload SARIF results to GitHub code scanning.
     steps:
-      - uses: oxc-project/security-action@57ad85d07dae1ebcb2ddc237ee89e0c68eaf8c5d # v0.0.4
+      - uses: oxc-project/security-action@fbbd523b1e765ceb174cb819b92c453bb1da265e # v1.0.0
