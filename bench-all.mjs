@@ -19,9 +19,13 @@ async function runScenario(scenario) {
   return new Promise((resolve, reject) => {
     const scriptPath = `${__dirname}/${scenario}/bench.mjs`;
     const proc = spawn("node", [scriptPath], { stdio: "inherit" });
-    proc.on("close", (code) => {
+    proc.on("error", reject);
+    proc.on("close", (code, signal) => {
       if (code !== 0) {
-        reject(new Error(`${scenario} failed with code ${code}`));
+        const message = signal
+          ? `${scenario} failed with signal ${signal}`
+          : `${scenario} failed with code ${code}`;
+        reject(new Error(message));
       } else {
         resolve();
       }
@@ -44,7 +48,7 @@ async function main() {
   // Check if node_modules exists
   if (!existsSync("node_modules")) {
     console.error("Error: Dependencies not installed!");
-    console.error("Please run 'pnpm run setup' first");
+    console.error("Please run './init.sh' or 'pnpm install' first");
     process.exit(1);
   }
 
@@ -52,16 +56,30 @@ async function main() {
   console.log("JavaScript/TypeScript Formatter Benchmark");
   console.log("=========================================");
   console.log("");
-  console.log("Formatters: Prettier, Biome, Oxfmt");
+  console.log("Formatters: Prettier, Prettier+oxc-parser, Biome, Oxfmt");
   console.log("");
+
+  const failedScenarios = [];
 
   for (const scenario of scenarios) {
     try {
       await runScenario(scenario);
     } catch (e) {
+      failedScenarios.push({ scenario, message: e.message });
       console.error(`Error running ${scenario}: ${e.message}`);
     }
     console.log("");
+  }
+
+  if (failedScenarios.length > 0) {
+    console.error("=========================================");
+    console.error(`${failedScenarios.length} benchmark scenario(s) failed:`);
+    for (const { scenario, message } of failedScenarios) {
+      console.error(`- ${scenario}: ${message}`);
+    }
+    console.error("=========================================");
+    process.exitCode = 1;
+    return;
   }
 
   console.log("=========================================");
