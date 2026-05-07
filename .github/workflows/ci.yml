@@ -33,11 +33,10 @@ jobs:
           persist-credentials: false
           repository: outline/outline
           path: bench-js-no-embedded/data
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-          repository: storybookjs/storybook
-          path: bench-mixed-embedded/data
+      # storybookjs/storybook's default branch contains gitlinks under .external/
+      # without a .gitmodules file, which makes actions/checkout's post-job
+      # submodule cleanup fail. Use a plain shallow clone instead.
+      - run: git clone --depth=1 https://github.com/storybookjs/storybook.git bench-mixed-embedded/data
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
