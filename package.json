@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "update-readme": "node bench-all-and-update-readme.mjs",
-    "bench": "node bench-all.mjs"
+    "bench": "node bench-all.mjs",
+    "prepare": "vp config"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",
@@ -14,7 +15,8 @@
     "oxfmt": "^0.51.0",
     "prettier": "^3.8.1",
     "prettier-plugin-packagejson": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.8.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@11.0.4"
 }
