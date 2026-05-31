@@ -9,7 +9,7 @@ const execAsync = promisify(exec);
 async function runBenchmark() {
   console.log("Running benchmark...");
   try {
-    const { stdout } = await execAsync("pnpm run bench");
+    const { stdout } = await execAsync("vp run bench");
     return stdout;
   } catch (error) {
     console.error("Error running benchmark:", error);
@@ -37,9 +37,9 @@ async function getVersions() {
   console.log("Fetching versions...");
   try {
     const [prettier, biome, oxfmt] = await Promise.all([
-      execAsync("pnpm prettier --version"),
-      execAsync("pnpm biome --version"),
-      execAsync("pnpm oxfmt --version"),
+      execAsync("vp exec prettier --version"),
+      execAsync("vp exec biome --version"),
+      execAsync("vp exec oxfmt --version"),
     ]);
 
     return {
