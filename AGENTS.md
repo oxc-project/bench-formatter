@@ -45,6 +45,7 @@ Each `bench.mjs` imports from `shared/utils.mjs`, calls `setupCwd()` to change t
 ### shared/utils.mjs
 
 Common logic shared across all scenarios:
+
 - `createFormatters(projectRoot, configDir)` — Returns command builders for all 4 formatters. `projectRoot` is the base for `node_modules`, `configDir` holds config files.
 - `runHyperfine(args)` — Spawns hyperfine process, returns a Promise.
 - `runMemoryBenchmarks()` / `measureMemory()` — Measures Peak RSS via GNU time (`gtime` or `/usr/bin/time`).
