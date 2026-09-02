@@ -18,5 +18,5 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "vite-plus": "catalog:"
   },
-  "packageManager": "pnpm@11.17.0"
+  "packageManager": "pnpm@11.25.0"
 }
