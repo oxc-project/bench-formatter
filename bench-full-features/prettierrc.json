@@ -10,7 +10,7 @@
     "^[.]"
   ],
   "importOrderTypeScriptVersion": "5.0.0",
-  "importOrderParserPlugins" : ["typescript", "jsx", "decorators"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators"],
   "tailwindFunctions": ["cn"],
   "tailwindConfig": "./data/gui/tailwind.config.cjs",
   "plugins": [
