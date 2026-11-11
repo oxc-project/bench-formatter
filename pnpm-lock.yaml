@@ -16,10 +16,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      oxfmt:
-        specifier: ^0.78.0
-        version: 0.78.0(vite-plus@1.5.1(@vitest/ui@5.1.0(vitest@5.1.0)))
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.6.6
@@ -30,6 +26,9 @@ importers:
       '@prettier/plugin-oxc':
         specifier: ^0.2.3
         version: 0.2.3
+      oxfmt:
+        specifier: ^0.78.0
+        version: 0.78.0(vite-plus@1.5.1(@vitest/ui@5.1.0(vitest@5.1.0)))
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
