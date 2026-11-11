@@ -9,12 +9,12 @@
     "prepare": "vp config"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.11",
+    "@biomejs/biome": "^2.6.6",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
-    "@prettier/plugin-oxc": "^0.2.2",
+    "@prettier/plugin-oxc": "^0.2.3",
     "oxfmt": "^0.78.0",
-    "prettier": "^3.9.6",
-    "prettier-plugin-packagejson": "^3.0.2",
+    "prettier": "^3.9.10",
+    "prettier-plugin-packagejson": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "vite-plus": "catalog:"
   },
